@@ -1,5 +1,7 @@
 package matheus.com.br.oscarapp;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.widget.EditText;
 
 import java.io.BufferedInputStream;
@@ -16,7 +18,15 @@ import java.net.URL;
 
 public class HTTPHandler {
 
-    public HTTPHandler() {
+    public HTTPHandler() {    }
+
+
+    public Bitmap downloadImage(String url) throws IOException {
+        URL address = new URL(url);
+        InputStream inputStream = address.openStream();
+        Bitmap image = BitmapFactory.decodeStream(inputStream);
+        inputStream.close();
+        return image;
     }
 
     public String makeServiceCall(String reqUrl){

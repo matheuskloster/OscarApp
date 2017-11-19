@@ -18,7 +18,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MenuActivity"></activity>
+        <activity android:name=".MenuActivity" />
+        <activity android:name=".VotarFilmeActivity" />
+        <activity android:name=".VotarDiretorActivity" />
+        <activity android:name=".ConfirmarVotoActivity" />
+        <activity android:name=".ListCellDiretor" />
+        <activity android:name=".DetailFilmeActivity"></activity>
     </application>
 
 </manifest>

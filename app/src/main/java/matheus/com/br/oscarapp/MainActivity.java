@@ -42,9 +42,6 @@ public class MainActivity extends AppCompatActivity {
             String user = usuario.getText().toString();
             String password = senha.getText().toString();
             new TaskLogin().execute();
-
-            out.setText(user);
-
         }
     }
 
@@ -80,5 +77,7 @@ public class MainActivity extends AppCompatActivity {
             return null;
         }
     }
+
+
 }
 

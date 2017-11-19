@@ -30,6 +30,7 @@ public class ConfirmarVotoActivity extends AppCompatActivity {
     public static final String REQUEST_TAG = "ConfirmarVotoActivity";
     TextView filmeVotado, diretorVotado;
     private RequestQueue mQueue;
+    private final String URL_POST = "http://localhost:8080/usuarios/";
 
 
     @Override
@@ -45,16 +46,15 @@ public class ConfirmarVotoActivity extends AppCompatActivity {
 
     }
 
-    public void confirmarVoto(){
+    public void confirmarVoto() {
+        inserirJson();
+    }
 
-
-
-
-       StringRequest strReq = new StringRequest(Request.Method.POST, "http://localhost:8080/usuarios/", new Response.Listener<String>() {
+    public void inserirJson(){
+        StringRequest stringRequestq = new StringRequest(Request.Method.POST, URL_POST, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d("Salvar", response.toString());
-                //funcionou
+                Log.d("Salvar", response.toString())
             }
         }, new Response.ErrorListener() {
 
@@ -74,8 +74,8 @@ public class ConfirmarVotoActivity extends AppCompatActivity {
             }
         };
     }
+    }
 }
-
 
 
 

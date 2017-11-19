@@ -12,8 +12,11 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import matheus.com.br.oscarapp.model.Usuario;
+
 public class MainActivity extends AppCompatActivity {
 
+    public static Usuario u, u2;
     EditText usuario;
     EditText senha;
     TextView out;
@@ -61,11 +64,13 @@ public class MainActivity extends AppCompatActivity {
                     String password = usuarioRecebido.getString("password");
                     String filme = usuarioRecebido.getString("filme");
                     String diretor = usuarioRecebido.getString("diretor");
-                    Usuario u = new Usuario(id, username, password, filme, diretor);
+                    u = new Usuario(id, username, password, filme, diretor);
+
 
                     if (senha.getText().toString().equals(u.getPassword())) {
                         Intent it = new Intent(getContext(), MenuActivity.class);
-                        it.putExtra("usuario", u);
+                        //it.putExtra("usuario", u);
+                        u2 = new Usuario(u.getId(),u.getUsername(),u.getPassword(),u.getFilme(),u.getDiretor());
                         startActivity(it);
                         finish();
                     }

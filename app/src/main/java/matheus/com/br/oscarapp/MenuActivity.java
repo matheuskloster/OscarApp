@@ -2,25 +2,39 @@ package matheus.com.br.oscarapp;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import matheus.com.br.oscarapp.model.Diretor;
+import matheus.com.br.oscarapp.model.Filme;
+import matheus.com.br.oscarapp.model.Usuario;
+
+import static matheus.com.br.oscarapp.MainActivity.u;
+
 public class MenuActivity extends AppCompatActivity {
-    public static Usuario u;
+
     public static List<Diretor> diretoresList = new ArrayList<>();
     public static List<Filme> filmesList = new ArrayList<>();
     public static String urlDiretor = "https://dl.dropboxusercontent.com/s/4scnaqzioi3ivxc/diretor.json";
     public static String urlFilme = "https://dl.dropboxusercontent.com/s/luags6sv8uxdoj1/filme.json";
+
+
+    private MenuActivity getContext() {
+        return this;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,15 +50,10 @@ public class MenuActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.votarFilme:
-                Intent itFilme = new Intent(this, VotarFilmeActivity.class);
-                //baixar filmes e colocar na lista de filmes
-
-                startActivity(itFilme);
+                new TaskFilmes().execute(null, null, null);
                 break;
             case R.id.votarDiretor:
-                new TaskDiretor().execute(null,null,null);
-                Intent itDiretor = new Intent(this, VotarDiretorActivity.class);
-                startActivity(itDiretor);
+                new TaskDiretor().execute(null, null, null);
                 break;
             case R.id.confirmarVoto:
                 Intent itConfirmar = new Intent(this, ConfirmarVotoActivity.class);
@@ -63,16 +72,13 @@ public class MenuActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-           // progressDialog = new ProgressDialog(getBaseContext());
-            //progressDialog.setMessage("Carregando lista");
-            //progressDialog.show();
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
             HTTPHandler httpHandler = new HTTPHandler();
             String jsonStr = httpHandler.makeServiceCall(urlDiretor);
-            if (jsonStr != null) {
+            if (jsonStr != null && diretoresList.size() == 0) {
                 try {
                     JSONObject jsonObj = new JSONObject(jsonStr);
                     JSONArray diretores = jsonObj.getJSONArray("diretor");
@@ -93,13 +99,66 @@ public class MenuActivity extends AppCompatActivity {
             return null;
         }
 
-        protected void onPostExecute(Void result){
-            super.onPostExecute(result);
-            progressDialog.dismiss();
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            Intent itDiretor = new Intent(getContext(), VotarDiretorActivity.class);
+            startActivity(itDiretor);
+            //1   progressDialog.dismiss();
+        }
 
+    }
+
+
+    private class TaskFilmes extends AsyncTask<Void, Void, Void> {
+
+        private ProgressDialog pDialog;
+
+        protected void onPreExecute() {
+
+            super.onPreExecute();
+            //pDialog.
 
         }
 
+        @Override
+        protected Void doInBackground(Void... voids) {
+            HTTPHandler httpHandler = new HTTPHandler();
+            String jsonStr = httpHandler.makeServiceCall(urlFilme);
+            if (jsonStr != null && filmesList.size() == 0) {
+                try {
+                    JSONObject jsonObj = new JSONObject(jsonStr);
+                    JSONArray filmes = jsonObj.getJSONArray("filme");
+
+                    for (int i = 0; i < filmes.length(); i++) {
+                        JSONObject f = filmes.getJSONObject(i);
+                        Integer id = f.getInt("id");
+                        String nome = f.getString("nome");
+                        String genero = f.getString("genero");
+                        Bitmap foto = httpHandler.downloadImage(f.getString("foto"));
+                        Filme filme = new Filme(id, nome, genero, foto);
+                        filmesList.add(filme);
+                    }
+                } catch (final JSONException e) {
+                    e.printStackTrace();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getApplicationContext(), "Json parsing error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            return null;
+        }
+
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            Intent itFilme = new Intent(getContext(), VotarFilmeActivity.class);
+            startActivity(itFilme);
+        }
     }
 }
 

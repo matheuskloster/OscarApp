@@ -23,7 +23,8 @@
         <activity android:name=".VotarDiretorActivity" />
         <activity android:name=".ConfirmarVotoActivity" />
         <activity android:name=".ListCellDiretor" />
-        <activity android:name=".DetailFilmeActivity"></activity>
+        <activity android:name=".DetailFilmeActivity" />
+        <activity android:name=".DetailDiretorActivity"></activity>
     </application>
 
 </manifest>

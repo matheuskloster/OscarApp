@@ -1,4 +1,4 @@
-package matheus.com.br.oscarapp;
+package matheus.com.br.oscarapp.model;
 
 /**
  * Created by Matheus on 18/11/17.

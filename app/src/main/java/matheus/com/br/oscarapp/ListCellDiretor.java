@@ -3,13 +3,13 @@ package matheus.com.br.oscarapp;
 import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import matheus.com.br.oscarapp.model.Diretor;
 
 import static matheus.com.br.oscarapp.MenuActivity.diretoresList;
 
@@ -31,7 +31,6 @@ public class ListCellDiretor extends ArrayAdapter<Diretor> {
         TextView titleTextView = (TextView) rowView.findViewById(R.id.nome);
 
         titleTextView.setText(diretoresList.get(position).getNome());
-
 
         return rowView;
     }

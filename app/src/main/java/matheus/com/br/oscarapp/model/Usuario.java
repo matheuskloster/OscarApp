@@ -1,4 +1,4 @@
-package matheus.com.br.oscarapp;
+package matheus.com.br.oscarapp.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

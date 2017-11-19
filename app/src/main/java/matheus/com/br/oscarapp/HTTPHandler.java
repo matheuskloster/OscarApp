@@ -12,6 +12,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import matheus.com.br.oscarapp.model.Usuario;
+
 /**
  * Created by Matheus on 16/11/17.
  */
@@ -58,6 +60,7 @@ public class HTTPHandler {
             return sb.toString();
         }
     }
+
 
 
 }

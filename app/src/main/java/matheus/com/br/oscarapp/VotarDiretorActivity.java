@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -40,8 +41,8 @@ public class VotarDiretorActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
-                Intent it = new Intent(getContext(), DetailFilmeActivity.class);
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent it = new Intent(getContext(), DetailDiretorActivity.class);
                 Bundle params = new Bundle();
                 params.putInt("position", position);
                 params.putInt("id", diretoresList.get(position).getId());
@@ -51,6 +52,7 @@ public class VotarDiretorActivity extends AppCompatActivity {
                 startActivity(it);
             }
         });
+
 
 
     }

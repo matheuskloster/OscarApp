@@ -26,29 +26,15 @@ public class DetailDiretorActivity extends AppCompatActivity {
 
         Intent it = getIntent();
         if (it != null) {
-<<<<<<< HEAD
             Diretor diretor = it.getExtras().getParcelable("diretor");
             nome = diretor.getNome();
             nomeTextView.setText(nome);
         }
     }
 
-
-    public void votar(View view) {
-        u.setDiretor(nome);
-        Toast.makeText(this, "Seu voto no diretor foi cadastrado localmente ", Toast.LENGTH_SHORT).show();
-=======
-            Bundle params = it.getExtras();
-            if (params != null){
-                nome = params.getString("nome");
-                nomeTextView.setText(nome);
-            }
-        }
-    }
-
     public void votar(View view){
         u.setDiretor(nome);
         Toast.makeText(this, "Seu voto no diretor foi cadastrado localmente" , Toast.LENGTH_SHORT).show();
->>>>>>> bcd224081dc78cad236881ea465ff731fe3b6444
+
     }
 }

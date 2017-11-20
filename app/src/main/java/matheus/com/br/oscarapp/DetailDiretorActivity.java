@@ -12,9 +12,7 @@ import static matheus.com.br.oscarapp.MainActivity.u;
 public class DetailDiretorActivity extends AppCompatActivity {
 
     TextView nomeTextView;
-    int position;
     String nome;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,23 +21,18 @@ public class DetailDiretorActivity extends AppCompatActivity {
 
         nomeTextView = (TextView) findViewById(R.id.nomeTextView);
 
-
         Intent it = getIntent();
         if (it != null) {
             Bundle params = it.getExtras();
             if (params != null){
-                position = params.getInt("position");
                 nome = params.getString("nome");
-
                 nomeTextView.setText(nome);
             }
         }
-
     }
-
 
     public void votar(View view){
         u.setDiretor(nome);
-        Toast.makeText(this, "Seu voto no diretor foi cadastrado localmente " , Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Seu voto no diretor foi cadastrado localmente" , Toast.LENGTH_SHORT).show();
     }
 }

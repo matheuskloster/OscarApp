@@ -16,8 +16,7 @@ public class DetailFilmeActivity extends AppCompatActivity {
 
     TextView nomeTextView, generoTextView;
     ImageView imageView;
-    int position;
-    String nome, genero;
+    String nome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +31,7 @@ public class DetailFilmeActivity extends AppCompatActivity {
         if (it != null) {
             Bundle params = it.getExtras();
             if (params != null) {
-                position = params.getInt("position");
                 nome = params.getString("nome");;
-                genero = params.getString("genero");
                 byte[] byteArray = params.getByteArray("foto");
                 Bitmap picture = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
 
@@ -46,9 +43,8 @@ public class DetailFilmeActivity extends AppCompatActivity {
     }
 
     public void votar(View view) {
-
        u.setFilme(nome);
-        Toast.makeText(this, "Seu voto no filme foi cadastrado localmente " , Toast.LENGTH_SHORT).show();
+       Toast.makeText(this, "Seu voto no filme foi cadastrado localmente " , Toast.LENGTH_SHORT).show();
     }
 
 }

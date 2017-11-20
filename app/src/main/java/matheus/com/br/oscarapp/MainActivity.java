@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
     public void onResponse(Object response) {
         Intent it = new Intent(getContext(), MenuActivity.class);
         startActivity(it);
+        u = new Usuario(null, usuario.getText().toString(), senha.getText().toString(), null, null);
         finish();
     }
 

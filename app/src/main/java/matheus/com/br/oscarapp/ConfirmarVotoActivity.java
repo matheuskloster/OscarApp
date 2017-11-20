@@ -54,7 +54,7 @@ public class ConfirmarVotoActivity extends AppCompatActivity {
         StringRequest stringRequestq = new StringRequest(Request.Method.POST, URL_POST, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d("Salvar", response.toString())
+                Log.d("Salvar", response.toString());
             }
         }, new Response.ErrorListener() {
 
@@ -75,7 +75,7 @@ public class ConfirmarVotoActivity extends AppCompatActivity {
         };
     }
     }
-}
+
 
 
 

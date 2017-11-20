@@ -72,6 +72,11 @@ public class MenuActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            progressDialog = new ProgressDialog(getContext());
+            progressDialog.setMessage("Carregando lista de diretores");
+            progressDialog.show();
+
+
         }
 
         @Override
@@ -103,7 +108,7 @@ public class MenuActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
             Intent itDiretor = new Intent(getContext(), VotarDiretorActivity.class);
             startActivity(itDiretor);
-            //1   progressDialog.dismiss();
+              progressDialog.dismiss();
         }
 
     }
@@ -116,7 +121,9 @@ public class MenuActivity extends AppCompatActivity {
         protected void onPreExecute() {
 
             super.onPreExecute();
-            //pDialog.
+            pDialog = new ProgressDialog(getContext());
+            pDialog.setMessage("Carregando lista de filmes");
+            pDialog.show();
 
         }
 
@@ -156,6 +163,7 @@ public class MenuActivity extends AppCompatActivity {
 
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            pDialog.dismiss();
             Intent itFilme = new Intent(getContext(), VotarFilmeActivity.class);
             startActivity(itFilme);
         }

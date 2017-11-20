@@ -7,14 +7,15 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import matheus.com.br.oscarapp.model.Diretor;
+import matheus.com.br.oscarapp.model.Filme;
+
 import static matheus.com.br.oscarapp.MainActivity.u;
 
 public class DetailDiretorActivity extends AppCompatActivity {
 
     TextView nomeTextView;
-    int position;
     String nome;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,23 +24,31 @@ public class DetailDiretorActivity extends AppCompatActivity {
 
         nomeTextView = (TextView) findViewById(R.id.nomeTextView);
 
-
         Intent it = getIntent();
         if (it != null) {
-            Bundle params = it.getExtras();
-            if (params != null){
-                position = params.getInt("position");
-                nome = params.getString("nome");
-
-                nomeTextView.setText(nome);
-            }
+<<<<<<< HEAD
+            Diretor diretor = it.getExtras().getParcelable("diretor");
+            nome = diretor.getNome();
+            nomeTextView.setText(nome);
         }
-
     }
 
 
+    public void votar(View view) {
+        u.setDiretor(nome);
+        Toast.makeText(this, "Seu voto no diretor foi cadastrado localmente ", Toast.LENGTH_SHORT).show();
+=======
+            Bundle params = it.getExtras();
+            if (params != null){
+                nome = params.getString("nome");
+                nomeTextView.setText(nome);
+            }
+        }
+    }
+
     public void votar(View view){
         u.setDiretor(nome);
-        Toast.makeText(this, "Seu voto no diretor foi cadastrado localmente " , Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Seu voto no diretor foi cadastrado localmente" , Toast.LENGTH_SHORT).show();
+>>>>>>> bcd224081dc78cad236881ea465ff731fe3b6444
     }
 }

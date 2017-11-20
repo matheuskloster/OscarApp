@@ -20,6 +20,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.List;
 
+import static matheus.com.br.oscarapp.MainActivity.u;
 import static matheus.com.br.oscarapp.MenuActivity.diretoresList;
 
 public class VotarDiretorActivity extends AppCompatActivity {
@@ -43,12 +44,7 @@ public class VotarDiretorActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent it = new Intent(getContext(), DetailDiretorActivity.class);
-                Bundle params = new Bundle();
-                params.putInt("position", position);
-                params.putInt("id", diretoresList.get(position).getId());
-
-                params.putString("nome", diretoresList.get(position).getNome());
-                it.putExtras(params);
+                it.putExtra("diretor",diretoresList.get(position));
                 startActivity(it);
             }
         });

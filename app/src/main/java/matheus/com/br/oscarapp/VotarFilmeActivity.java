@@ -2,30 +2,20 @@ package matheus.com.br.oscarapp;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import static matheus.com.br.oscarapp.MenuActivity.filmesList;
-import static matheus.com.br.oscarapp.MainActivity.u;
-import static matheus.com.br.oscarapp.MenuActivity.urlFilme;
 
 public class VotarFilmeActivity extends AppCompatActivity {
 
-    public static ListView listView;
-    public static ListCell adapter;
+    public static ListView listViewFilme;
+    public static ListCell filmeAdapter;
 
 
     private VotarFilmeActivity getContext() {
@@ -37,10 +27,10 @@ public class VotarFilmeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_votar_filme);
 
-        adapter = new ListCell(VotarFilmeActivity.this);
-        listView = (ListView) findViewById(R.id.list);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        filmeAdapter = new ListCell(VotarFilmeActivity.this);
+        listViewFilme = (ListView) findViewById(R.id.list);
+        listViewFilme.setAdapter(filmeAdapter);
+        listViewFilme.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent it = new Intent(getContext(), DetailFilmeActivity.class);
@@ -49,7 +39,7 @@ public class VotarFilmeActivity extends AppCompatActivity {
                 params.putInt("id", filmesList.get(position).getId());
 
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                filmesList.get(position).getFoto().compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                filmesList.get(position).getFoto().compress(Bitmap.CompressFormat.JPEG, 50, stream);
                 byte[] byteArray = stream.toByteArray();
                 params.putByteArray("foto", byteArray);
 

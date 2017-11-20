@@ -20,6 +20,8 @@ import org.json.JSONObject;
 
 import matheus.com.br.oscarapp.model.Usuario;
 
+import static matheus.com.br.oscarapp.MenuActivity.voted;
+
 public class MainActivity extends AppCompatActivity implements Response.Listener, Response.ErrorListener {
 
     public static Usuario u, u2;
@@ -70,8 +72,9 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
             public void onClick(View view) {
                 if (usuario.length() == 0 || senha.length() == 0) {
                     Toast.makeText(getContext(), "Verifique se há campos vazios", Toast.LENGTH_SHORT).show();
+                } else {
+                    mQueue.add(makeRequest(usuario.getText().toString(), senha.getText().toString()));
                 }
-                mQueue.add(makeRequest(usuario.getText().toString(), senha.getText().toString()));
             }
         });
     }
@@ -91,9 +94,21 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
 
     @Override
     public void onResponse(Object response) {
+        JSONObject jsonResponse = (JSONObject) response;
         Intent it = new Intent(getContext(), MenuActivity.class);
+        try {
+            u = new Usuario(null, jsonResponse.getString("username"), jsonResponse.getString("password"), jsonResponse.getString("filme"), jsonResponse.getString("diretor"));
+            if (!u.getDiretor().equals("null") && !u.getFilme().equals("null")) {
+                voted = true;
+                it.putExtra("menuTextView", "Seus votos foram para:\n" + u.getDiretor() + "\n" + u.getFilme());
+            }
+            u.setDiretor(null);
+            u.setFilme(null);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         startActivity(it);
-        u = new Usuario(null, usuario.getText().toString(), senha.getText().toString(), null, null);
         finish();
     }
 

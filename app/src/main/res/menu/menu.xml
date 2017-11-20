@@ -10,4 +10,7 @@
     <item android:id="@+id/confirmarVoto"
         android:title="Confirmar Voto"></item>
 
+    <item android:id="@+id/sair"
+        android:title="Sair"></item>
+
 </menu>

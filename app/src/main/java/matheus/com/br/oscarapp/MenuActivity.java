@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -30,6 +31,8 @@ public class MenuActivity extends AppCompatActivity {
     public static List<Filme> filmesList = new ArrayList<>();
     public static String urlDiretor = "https://dl.dropboxusercontent.com/s/4scnaqzioi3ivxc/diretor.json";
     public static String urlFilme = "https://dl.dropboxusercontent.com/s/luags6sv8uxdoj1/filme.json";
+    public static boolean voted;
+    TextView menuTextView;
 
 
     private MenuActivity getContext() {
@@ -40,6 +43,24 @@ public class MenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+        menuTextView = (TextView) findViewById(R.id.menuTextView);
+
+        Intent it = getIntent();
+        if (it != null) {
+            if (it.getExtras() != null) {
+                menuTextView.setText(it.getExtras().getString("menuTextView"));
+            }
+        }
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if (voted) {
+            menu.findItem(R.id.votarFilme).setEnabled(false);
+            menu.findItem(R.id.votarDiretor).setEnabled(false);
+            menu.findItem(R.id.confirmarVoto).setEnabled(false);
+        }
+        return true;
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -59,6 +80,8 @@ public class MenuActivity extends AppCompatActivity {
                 Intent itConfirmar = new Intent(this, ConfirmarVotoActivity.class);
                 startActivity(itConfirmar);
                 break;
+            case R.id.sair:
+                this.finishAffinity();
             default:
                 return super.onOptionsItemSelected(item);
         }

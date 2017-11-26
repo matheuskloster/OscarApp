@@ -29,6 +29,7 @@ import java.util.Map;
 
 import static matheus.com.br.oscarapp.MainActivity.u;
 import static matheus.com.br.oscarapp.MainActivity.u2;
+import static matheus.com.br.oscarapp.MenuActivity.voted;
 
 public class ConfirmarVotoActivity extends AppCompatActivity implements Response.Listener, Response.ErrorListener {
 
@@ -116,6 +117,8 @@ public class ConfirmarVotoActivity extends AppCompatActivity implements Response
 
     @Override
     public void onResponse(Object response) {
+        voted = true;
+        button.setEnabled(false);
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setMessage("Voto registrado com sucesso!")
                 .setCancelable(false)

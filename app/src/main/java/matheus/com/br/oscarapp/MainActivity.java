@@ -98,12 +98,15 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
         Intent it = new Intent(getContext(), MenuActivity.class);
         try {
             u = new Usuario(null, jsonResponse.getString("username"), jsonResponse.getString("password"), jsonResponse.getString("filme"), jsonResponse.getString("diretor"));
-            if (!u.getDiretor().equals("null") && !u.getFilme().equals("null")) {
+            if (u.getDiretor().equals("null") && u.getFilme().equals("null")) {
+                voted = false;
+                u.setDiretor(null);
+                u.setFilme(null);
+            } else {
                 voted = true;
                 it.putExtra("menuTextView", "Seus votos foram para:\n" + u.getDiretor() + "\n" + u.getFilme());
+
             }
-            u.setDiretor(null);
-            u.setFilme(null);
         } catch (JSONException e) {
             e.printStackTrace();
         }

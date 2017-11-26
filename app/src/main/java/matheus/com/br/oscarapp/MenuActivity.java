@@ -31,7 +31,7 @@ public class MenuActivity extends AppCompatActivity {
     public static List<Filme> filmesList = new ArrayList<>();
     public static String urlDiretor = "https://dl.dropboxusercontent.com/s/4scnaqzioi3ivxc/diretor.json";
     public static String urlFilme = "https://dl.dropboxusercontent.com/s/luags6sv8uxdoj1/filme.json";
-    public static boolean voted;
+    public static boolean voted = false;
     TextView menuTextView;
 
 
@@ -50,6 +50,14 @@ public class MenuActivity extends AppCompatActivity {
             if (it.getExtras() != null) {
                 menuTextView.setText(it.getExtras().getString("menuTextView"));
             }
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (voted) {
+            menuTextView.setText("Seus votos foram para:\n" + u.getDiretor() + "\n" + u.getFilme());
         }
     }
 
